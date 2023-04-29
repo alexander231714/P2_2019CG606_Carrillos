@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form style="text-align: center;">
+    <h1 style="text-align: center;">Registro de Covid</h1>
+    <p style="text-align: center;">El siguiente formulario es para llevar el registro de casos reportados de</p>
+    <p style="text-align: center;">Covid por departamento y género</p>
+</form>
+<form asp-action="CrearCasos">
+    <div class="form-group row mb-4">
+        <div class="col-sm-2">
+            <h5>Reportar casos</h5>
+        </div>
+    </div>
+    <div class="form-group row mb-4">
+        <div class="col-sm-6">
+            @Html.Label("lblDepartamento", "Departamento")
+            @Html.DropDownList("departamentos_id", ViewData["listadoDepartamentos"] as SelectList, "Seleccione un departamento...", new{@class="form-control"})
+        </div>
+        <div class="col-sm-6">
+            @Html.Label("lblGenero", "Genero")  
+            @Html.DropDownList("genero_id", ViewData["listadoDeGeneros"] as SelectList, "Seleccione un genero...", new{@class="form-control"})
+        </div>
+    </div>
+    <div class="form-group row mb-4">
+        <div class="col-sm-4">
+            @Html.Label("lblCasosConfirmados", "Casos Confirmados")
+            @Html.TextBox("casos_confirmados","", new {@class="form-control"})
+        </div>
+        <div class="col-sm-4">
+            @Html.Label("lblCasosRecuperados", "Numero de Recueperado")
+            @Html.TextBox("casos_recuperado","", new {@class="form-control"})
+        </div>
+        <div class="col-sm-4">
+            @Html.Label("lblCasosFallecidos", "Numero de Fallecidos")
+            @Html.TextBox("casos_fallecidos","", new {@class="form-control"})
+        </div>
+    </div>
+    <div class="form-group row mb-4">
+        <div class="col-12">
+            <input type="submit" class="btn btn-success btn-block w-100" value="Guardar Registro" />
+        </div>
+    </div>
+
+    <table class="table tabletable-striped">
+        <thead>
+            <tr>
+                <th>Departamento</th>
+                <th>Genero</th>
+                <th>Confirmados</th>
+                <th>Recuperados</th>
+                <th>Fallecidos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var registro in (IEnumerable<dynamic>)ViewData["listadoRegistro"])
+            {
+                <tr>
+                <td>@registro.departamento</td>
+                <td>@registro.genero</td>
+                <td>@registro.confirmados</td>
+                <td>@registro.recuperados</td>
+                <td>@registro.fallecidos</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
